@@ -1,0 +1,11 @@
+<view class="screen stack" style="{{theme}}">
+  <view class="hero"><text class="hero-title">日历主题</text><text class="muted">点击主题即可应用。</text></view>
+  <view class="theme-list">
+    <button class="preview {{item.id === themeId ? 'active' : ''}}" wx:for="{{choices}}" wx:key="id"
+      style="background: {{item.bg}}; color: {{item.text}};" data-theme="{{item.id}}" bindtap="pick"
+      aria-label="{{item.name}}{{item.id === themeId ? ' 已选' : ''}}">
+      <view class="sample" style="background:{{item.card}}; color:{{item.brand}};">21 <text style="color:{{item.muted}};">星期六</text></view>
+      <view class="row"><text>{{item.name}}</text><text wx:if="{{item.id === themeId}}" aria-hidden="true">✓</text></view>
+    </button>
+  </view>
+</view>

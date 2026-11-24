@@ -1,0 +1,11 @@
+<template name="public-card">
+  <view class="panel stack">
+    <view class="muted">日有所喜</view>
+    <view class="hero-title">{{card.date}}</view>
+    <view wx:for="{{card.contents}}" wx:key="code" class="divider">
+      <view class="card-title">{{item.title}}</view>
+      <view class="body-text">{{item.payload.text}}</view>
+      <view wx:if="{{item.sourceName}}" class="muted">{{item.sourceName}}</view>
+    </view>
+  </view>
+</template>

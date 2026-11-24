@@ -1,0 +1,26 @@
+<view class="screen stack" style="{{theme}}">
+  <view class="hero"><text class="hero-title">我的日历</text></view>
+  <view class="row">
+    <view class="panel grow"><text class="section-title">{{interestCount}}</text><text class="muted">已启用兴趣</text></view>
+    <view class="panel grow"><text class="section-title">{{days}}</text><text class="muted">已记录天数</text></view>
+  </view>
+  <button class="button wide" bindtap="interests">管理兴趣</button>
+  <button class="button wide" bindtap="themes">主题 · {{themeName}}</button>
+  <picker mode="selector" range="{{signs}}" value="{{signIndex}}" bindchange="changeSign">
+    <view class="panel row"><text>星座</text><text class="muted">{{signs[signIndex]}} ›</text></view>
+  </picker>
+  <view class="panel stack">
+    <text class="card-title">账号与同步</text><text class="muted">{{status.message}}</text>
+    <button wx:if="{{connected && !authorized}}" class="button primary" bindtap="login" disabled="{{busy}}">{{account ? '重新登录' : '微信登录'}}</button>
+    <view wx:if="{{authorized}}" class="row wrap">
+      <button class="button" bindtap="retry" disabled="{{busy}}">同步</button>
+      <button class="button" bindtap="migrate" disabled="{{busy || status.conflict}}">导入本机记录</button>
+    </view>
+    <view wx:if="{{authorized && status.conflict}}" class="row wrap">
+      <button class="button" bindtap="keepLocal" disabled="{{busy}}">保留本机修改</button>
+      <button class="button" bindtap="keepCloud" disabled="{{busy}}">使用云端版本</button>
+    </view>
+    <button wx:if="{{account}}" class="button" bindtap="logout" disabled="{{busy}}">退出登录</button>
+  </view>
+  <view class="row"><button class="button grow" bindtap="privacy">隐私</button><button class="button grow" bindtap="feedback">反馈</button></view>
+</view>

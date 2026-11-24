@@ -1,0 +1,11 @@
+<view class="screen stack" style="{{theme}}">
+  <view class="hero"><text class="hero-title">反馈</text></view>
+  <view wx:if="{{signedIn}}" class="panel stack">
+    <label for="message">问题或建议</label>
+    <textarea id="message" value="{{text}}" bindinput="write" maxlength="500" placeholder="请勿填写私人日程或联系方式" />
+    <button class="button primary" bindtap="send" disabled="{{busy || !text}}">提交反馈</button>
+    <text wx:if="{{message}}" class="muted" role="alert">{{message}}</text>
+  </view>
+  <view wx:else class="panel muted">登录后可向日有所喜提交反馈。</view>
+  <button class="button wide" open-type="feedback">使用微信反馈</button>
+</view>

@@ -1,0 +1,42 @@
+{
+  "pages": [
+    "pages/calendar/index",
+    "pages/discover/index",
+    "pages/profile/index",
+    "pages/interests/index",
+    "pages/themes/index",
+    "pages/day-detail/index",
+    "pages/note-editor/index",
+    "pages/share-card/index",
+    "pages/share-landing/index",
+    "pages/privacy/index",
+    "pages/feedback/index"
+  ],
+  "window": {
+    "navigationBarTitleText": "日有所喜",
+    "navigationBarBackgroundColor": "#FFF9F1",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#FFF9F1"
+  },
+  "tabBar": {
+    "color": "#61534B",
+    "selectedColor": "#8C452E",
+    "backgroundColor": "#FFFFFF",
+    "list": [
+      {
+        "pagePath": "pages/calendar/index",
+        "text": "日历"
+      },
+      {
+        "pagePath": "pages/discover/index",
+        "text": "发现"
+      },
+      {
+        "pagePath": "pages/profile/index",
+        "text": "我的"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json",
+  "style": "v2"
+}

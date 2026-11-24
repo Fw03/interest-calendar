@@ -1,0 +1,15 @@
+<view class="screen stack" style="{{theme}}">
+  <view class="hero"><text class="hero-title">隐私与数据</text></view>
+  <view class="panel stack">
+    <text class="card-title">本机数据</text>
+    <text class="muted">登录前选的主题、兴趣、星座和日程保存在当前设备。</text>
+    <button class="button" bindtap="clearDevice" disabled="{{busy}}">清除离线访客数据</button>
+  </view>
+  <view class="panel stack">
+    <text class="card-title">微信账号数据</text>
+    <text class="muted">微信登录后，当前账号的偏好与日程会同步。分享仅使用日期、主题和公开内容。访问分享时记录入口和时间。相册权限在保存海报时使用。</text>
+    <button wx:if="{{signedIn}}" class="button" bindtap="confirmDeletion" disabled="{{busy}}">删除微信账号数据</button>
+    <text wx:else class="muted">登录后可以管理当前微信账号的云端数据。</text>
+  </view>
+  <text wx:if="{{message}}" class="muted" role="alert">{{message}}</text>
+</view>

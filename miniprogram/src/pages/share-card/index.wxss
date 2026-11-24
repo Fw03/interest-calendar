@@ -1,0 +1,2 @@
+.canvas { position: fixed; left: -400px; top: 0; width: 315px; height: 440px; pointer-events: none; }
+.poster { width: 100%; border-radius: 26rpx; }

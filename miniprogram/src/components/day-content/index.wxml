@@ -1,0 +1,31 @@
+<view class="stack">
+  <block wx:for="{{cards}}" wx:key="code">
+  <view wx:if="{{item.code !== 'note' || !showAll}}" class="panel">
+    <view class="row">
+      <view class="mark" aria-hidden="true">{{item.mark}}</view>
+      <text class="card-title grow">{{item.title}}</text>
+      <button wx:if="{{item.code === 'note'}}" class="button" bindtap="newEvent">添加</button>
+      <text wx:elif="{{item.isDemo}}" class="muted">娱乐演示</text>
+    </view>
+    <block wx:if="{{item.code === 'note'}}">
+      <block wx:for="{{events}}" wx:for-item="entry" wx:for-index="entryIndex" wx:key="id">
+        <button class="event" wx:if="{{3 > entryIndex}}" data-id="{{entry.id}}" bindtap="editEvent">{{entry.completed ? '✓ ' : ''}}{{entry.title}}</button>
+      </block>
+      <view wx:if="{{!events.length}}" class="muted body-text">这天还没有日程</view>
+      <view wx:elif="{{events.length > 3}}" class="muted">在日期详情查看全部 {{events.length}} 条</view>
+    </block>
+    <block wx:else>
+      <view class="body-text">{{item.payload.text}}</view>
+      <view wx:if="{{item.sourceName && !item.isDemo}}" class="muted">{{item.sourceName}}</view>
+    </block>
+  </view>
+  </block>
+  <view wx:if="{{showAll}}" class="panel">
+    <view class="row"><text class="section-title">日程备注</text><button class="button" bindtap="newEvent">添加</button></view>
+    <button class="event" wx:for="{{events}}" wx:key="id" data-id="{{item.id}}" bindtap="editEvent">
+      <view>{{item.completed ? '✓ ' : ''}}{{item.title}}</view>
+      <view wx:if="{{item.content}}" class="muted">{{item.content}}</view>
+    </button>
+    <view wx:if="{{!events.length}}" class="muted body-text">这天还没有日程</view>
+  </view>
+</view>

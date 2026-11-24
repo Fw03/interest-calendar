@@ -1,0 +1,16 @@
+node_modules/
+dist/
+.test-build/
+target/
+.tools/
+.local/
+project.private.config.json
+miniprogram/local.config.json
+.env
+.env.*
+!.env.example
+*.log
+*.pem
+*.p12
+*.key
+backups/

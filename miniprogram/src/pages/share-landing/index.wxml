@@ -1,0 +1,9 @@
+<import src="../../components/public-card.wxml" />
+<view class="screen stack" style="{{theme}}">
+  <template wx:if="{{card}}" is="public-card" data="{{card: card}}" />
+  <view wx:if="{{loading}}" class="panel muted">正在打开分享…</view>
+  <view wx:if="{{message}}" class="panel muted" role="alert">{{message}}</view>
+  <button wx:if="{{message && lookup}}" class="button wide" bindtap="open">重试</button>
+  <button wx:if="{{card && token}}" class="button wide" bindtap="report">举报卡片</button>
+    <button class="button primary wide" bindtap="home">体验我的日历</button>
+</view>

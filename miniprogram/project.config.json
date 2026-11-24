@@ -1,0 +1,11 @@
+{
+  "appid": "touristappid",
+  "projectname": "日有所喜",
+  "compileType": "miniprogram",
+  "miniprogramRoot": "dist/",
+  "setting": {
+    "es6": true,
+    "minified": true,
+    "urlCheck": true
+  }
+}

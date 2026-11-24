@@ -1,0 +1,39 @@
+<view class="screen stack" style="{{theme}}">
+  <view class="row wrap hero calendar-hero">
+    <view class="grow">
+      <text class="hero-title">日有所喜</text>
+      <text class="muted">每天，都有一点你喜欢的。</text>
+    </view>
+    <button class="button" bindtap="themes" aria-label="切换主题">✦ {{themeName}}</button>
+  </view>
+  <view class="panel calendar">
+    <view class="row month-nav">
+      <view class="month-title"><text>{{month}}</text><text class="month-label">月</text><text class="muted month-year">{{year}}</text></view>
+      <view class="row month-actions">
+        <button class="button month-arrow" aria-label="上个月" disabled="{{year === 1900 && month === 1}}" bindtap="move" data-delta="-1">‹</button>
+        <button class="button month-today" bindtap="goToday">今天</button>
+        <button class="button month-arrow" aria-label="下个月" disabled="{{year === 2099 && month === 12}}" bindtap="move" data-delta="1">›</button>
+      </view>
+    </view>
+    <view class="grid weekdays">
+      <text wx:for="{{weekdays}}" wx:key="*this" class="muted">{{item}}</text>
+    </view>
+    <view class="grid grid-days">
+      <view wx:for="{{days}}" wx:key="date" data-date="{{item.date}}" bindtap="pick" role="button" aria-disabled="{{!item.isSelectable}}"
+        aria-label="{{item.date}}{{item.isToday ? ' 今天' : ''}}{{item.date === date ? ' 已选' : ''}}"
+        class="day {{item.date === date ? 'selected' : ''}} {{item.isToday ? 'today' : ''}} {{!item.isCurrentMonth ? 'other-month' : ''}}">
+        <text class="day-number">{{item.dayOfMonth}}</text>
+        <text class="lunar">{{item.solarTerm || item.lunarLabel}}</text>
+      </view>
+    </view>
+  </view>
+  <view wx:if="{{selected}}" class="row selected-heading">
+    <view class="grow"><text class="section-title">{{selected.fullLabel}}</text><text class="muted">{{selected.weekdayLabel}} · 农历{{selected.lunarLabel}}</text></view>
+    <button class="button" bindtap="detail">日期详情</button>
+  </view>
+  <view wx:if="{{!cards.length}}" class="panel muted">还没有选择兴趣，可随时添加喜欢的卡片。</view>
+  <view wx:if="{{publicError}}" class="muted">网络暂不可用，显示离线内容。</view>
+  <view wx:if="{{syncMessage}}" class="muted">{{syncMessage}}</view>
+  <day-content cards="{{cards}}" events="{{events}}" date="{{date}}" />
+  <view class="row wrap"><button class="button" bindtap="interests">管理兴趣</button><button class="button" bindtap="share">分享</button><button class="button primary" bindtap="note">＋ 新建日程</button></view>
+</view>

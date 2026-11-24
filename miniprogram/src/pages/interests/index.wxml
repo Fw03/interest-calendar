@@ -1,0 +1,19 @@
+<view class="screen stack" style="{{theme}}">
+  <view class="hero"><text class="hero-title">我的兴趣</text><text class="muted">更改会自动保存，首页按这里的顺序展示。</text></view>
+  <text class="section-title">已启用 · {{active.length}}</text>
+  <view wx:if="{{!active.length}}" class="panel muted">可从下方添加喜欢的兴趣。</view>
+  <view wx:for="{{active}}" wx:key="code" class="panel">
+    <view class="row"><view class="mark">{{item.mark}}</view><view class="grow"><text class="card-title">{{item.title}}</text><text class="muted">{{item.description}}</text></view></view>
+    <view class="row divider">
+      <button class="button" data-code="{{item.code}}" data-action="move" data-delta="-1" disabled="{{index === 0}}" bindtap="change" aria-label="上移{{item.title}}">上移</button>
+      <button class="button" data-code="{{item.code}}" data-action="move" data-delta="1" disabled="{{index === active.length - 1}}" bindtap="change" aria-label="下移{{item.title}}">下移</button>
+      <button class="button" data-code="{{item.code}}" bindtap="change" aria-label="停用{{item.title}}">停用</button>
+    </view>
+  </view>
+  <text wx:if="{{inactive.length}}" class="section-title">可添加</text>
+  <view wx:for="{{inactive}}" wx:key="code" class="panel row">
+    <view class="mark">{{item.mark}}</view><view class="grow"><text class="card-title">{{item.title}}</text><text class="muted">{{item.description}}</text></view>
+    <button class="button" data-code="{{item.code}}" bindtap="change" aria-label="添加{{item.title}}">添加</button>
+  </view>
+  <button class="button primary wide" bindtap="done">完成</button>
+</view>

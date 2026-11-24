@@ -1,0 +1,16 @@
+{
+  "name": "interest-calendar-miniprogram",
+  "private": true,
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "build": "node scripts/build.cjs",
+    "test": "npm run build && node --test tests/*.test.cjs"
+  },
+  "devDependencies": {
+    "miniprogram-api-typings": "5.2.1",
+    "typescript": "5.9.3"
+  },
+  "dependencies": {
+    "lunar-javascript": "1.7.7"
+  }
+}

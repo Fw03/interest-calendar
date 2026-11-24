@@ -1,0 +1,16 @@
+<view class="screen stack" style="{{theme}}">
+  <view class="hero"><text class="hero-title">{{editing ? '编辑日程' : '新建日程'}}</text></view>
+  <view wx:if="{{missing}}" class="panel muted">找不到这条日程，可能已删除。</view>
+  <block wx:else>
+    <view class="panel stack">
+      <label for="title">标题</label><input id="title" value="{{event.title}}" maxlength="80" placeholder="想记下什么？" bindinput="editTitle" />
+      <label for="content">备注</label><textarea id="content" value="{{event.content}}" maxlength="2000" placeholder="补充详情（可选）" bindinput="editContent" />
+      <picker mode="date" value="{{event.date}}" start="{{minDate}}" end="{{maxDate}}" bindchange="editDate"><view class="row divider"><text>日期</text><text>{{event.date}} ›</text></view></picker>
+      <view class="row divider"><text>设为待办</text><switch checked="{{event.kind === 'todo'}}" bindchange="toggleTodo" aria-label="设为待办" /></view>
+      <view wx:if="{{event.kind === 'todo'}}" class="row"><text>已完成</text><switch checked="{{event.completed}}" bindchange="toggleDone" aria-label="已完成" /></view>
+    </view>
+    <text wx:if="{{error}}" class="muted" role="alert">{{error}}</text>
+    <button class="button primary wide" bindtap="save">保存日程</button>
+    <button wx:if="{{editing}}" class="button wide" bindtap="remove">删除日程</button>
+  </block>
+</view>

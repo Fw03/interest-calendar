@@ -1,0 +1,9 @@
+<view class="screen stack" style="{{theme}}">
+  <view class="hero"><text class="hero-title">发现兴趣</text><text class="muted">把喜欢的内容加进日历。</text></view>
+  <view wx:for="{{modules}}" wx:key="code" class="panel row">
+    <view class="mark">{{item.mark}}</view><view class="grow"><text class="card-title">{{item.title}}</text><text class="muted">{{item.description}}</text></view>
+    <text wx:if="{{item.added}}" class="muted">已添加</text>
+    <button wx:else class="button" data-code="{{item.code}}" bindtap="add" aria-label="添加{{item.title}}">添加</button>
+  </view>
+  <view class="panel muted">暂无公开专题。</view>
+</view>

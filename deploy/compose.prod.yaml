@@ -1,0 +1,59 @@
+services:
+  mysql:
+    image: mysql:8.4.8
+    environment:
+      MYSQL_DATABASE: interest_calendar
+      MYSQL_USER: ${DB_USER:-calendar}
+      MYSQL_PASSWORD: ${DB_PASSWORD:?设置 DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:?设置 DB_ROOT_PASSWORD}
+    volumes:
+      - calendar-prod-db:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "--silent"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+    restart: unless-stopped
+
+  redis:
+    image: redis:7.4.7-alpine
+    environment:
+      REDIS_PASSWORD: ${REDIS_PASSWORD:?设置 REDIS_PASSWORD}
+    command: ["/bin/sh", "-c", "exec redis-server --requirepass \"$$REDIS_PASSWORD\""]
+    restart: unless-stopped
+
+  backend:
+    build: ../backend
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      DB_URL: "jdbc:mysql://mysql:3306/interest_calendar?connectionTimeZone=UTC&forceConnectionTimeZoneToSession=true"
+      DB_USER: ${DB_USER:-calendar}
+      DB_PASSWORD: ${DB_PASSWORD:?设置 DB_PASSWORD}
+      REDIS_HOST: redis
+      REDIS_PASSWORD: ${REDIS_PASSWORD:?设置 REDIS_PASSWORD}
+      CALENDAR_REDIS_CACHE: ${CALENDAR_REDIS_CACHE:-true}
+      WECHAT_APP_ID: ${WECHAT_APP_ID:-}
+      WECHAT_APP_SECRET: ${WECHAT_APP_SECRET:-}
+      WECHAT_CODE_ENV: release
+    depends_on:
+      mysql:
+        condition: service_healthy
+    read_only: true
+    tmpfs: ["/tmp"]
+    restart: unless-stopped
+
+  nginx:
+    image: nginx:1.28.2-alpine
+    environment:
+      CALENDAR_DOMAIN: ${CALENDAR_DOMAIN:?设置 CALENDAR_DOMAIN}
+    depends_on: [backend]
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/calendar.conf.template:/etc/nginx/templates/default.conf.template:ro
+      - "${TLS_DIR:?设置 TLS_DIR}:/etc/nginx/tls:ro"
+    restart: unless-stopped
+
+volumes:
+  calendar-prod-db:

@@ -1,0 +1,1 @@
+textarea { box-sizing: border-box; width: 100%; min-height: 180rpx; padding: 16rpx; border-radius: 12rpx; background: var(--soft); color: var(--text); }

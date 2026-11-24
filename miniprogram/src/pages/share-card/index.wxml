@@ -1,0 +1,25 @@
+<import src="../../components/public-card.wxml" />
+<view class="screen stack" style="{{theme}}">
+  <view wx:if="{{!incoming}}" class="row">
+    <button class="button grow {{card.templateId === 'daily' ? 'primary' : ''}}" disabled="{{loading}}" data-id="daily" bindtap="choose">每日精选</button>
+    <button class="button grow {{card.templateId === 'quote' ? 'primary' : ''}}" disabled="{{loading}}" data-id="quote" bindtap="choose">极简语录</button>
+  </view>
+  <template wx:if="{{card}}" is="public-card" data="{{card: card}}" />
+  <view wx:if="{{error}}" class="panel muted" role="alert">{{error}}</view>
+  <text wx:if="{{loading}}" class="muted">正在处理…</text>
+  <block wx:if="{{incoming}}">
+    <button wx:if="{{error && lookup}}" class="button" bindtap="openIncoming" disabled="{{loading}}">重试</button>
+    <button wx:if="{{card && token}}" class="button wide" bindtap="report">举报卡片</button>
+    <button class="button primary wide" bindtap="home">体验我的日历</button>
+  </block>
+  <block wx:else>
+    <button wx:if="{{connected && !token}}" class="button primary wide" bindtap="publish" disabled="{{loading}}">创建公开分享</button>
+    <text wx:if="{{token}}" class="muted">分享链接有效一周。也可通过右上角菜单分享到朋友圈。</text>
+    <button wx:if="{{token}}" class="button primary wide" open-type="share" disabled="{{loading}}">分享给微信好友</button>
+    <button class="button wide" bindtap="poster" disabled="{{loading}}">生成海报</button>
+    <canvas type="2d" id="poster" class="canvas" aria-hidden="true"></canvas>
+    <image wx:if="{{poster}}" class="poster" src="{{poster}}" mode="widthFix" aria-label="公开卡片海报" />
+    <text wx:if="{{posterMessage}}" class="muted">{{posterMessage}}</text>
+    <button wx:if="{{poster}}" class="button wide" bindtap="savePoster" disabled="{{loading}}">保存到相册</button>
+  </block>
+</view>

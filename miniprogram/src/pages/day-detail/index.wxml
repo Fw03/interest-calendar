@@ -1,0 +1,5 @@
+<view class="screen stack" style="{{theme}}">
+  <view class="hero"><text class="hero-title">{{selected.fullLabel}}</text><text class="muted">{{selected.weekdayLabel}} · 农历{{selected.lunarLabel}}{{selected.solarTerm ? ' · ' + selected.solarTerm : ''}}</text></view>
+  <view wx:if="{{publicError}}" class="muted">网络暂不可用，显示离线内容。</view>
+  <day-content cards="{{cards}}" events="{{events}}" date="{{date}}" show-all="{{true}}" />
+</view>

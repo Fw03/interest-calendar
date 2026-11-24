@@ -1,0 +1,6 @@
+.theme-list { display: grid; grid-template-columns: 1fr 1fr; gap: 18rpx; }
+.preview { width: 100%; margin: 0; padding: 16rpx; border: 3rpx solid var(--soft); border-radius: 20rpx; text-align: left; font-size: 27rpx; }
+.preview::after { border: none; }
+.preview.active { border-color: var(--brand); }
+.sample { display: flex; align-items: baseline; gap: 16rpx; border-radius: 16rpx; padding: 12rpx 17rpx; font: 700 54rpx Georgia, serif; }
+.sample text { font: 400 24rpx sans-serif; }

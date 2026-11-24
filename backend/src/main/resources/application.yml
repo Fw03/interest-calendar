@@ -1,0 +1,48 @@
+debug: false
+logging:
+  level:
+    org.springframework.web: INFO
+    org.springframework.jdbc: INFO
+spring:
+  profiles:
+    default: dev
+  application:
+    name: interest-calendar
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: true
+  data:
+    redis:
+      host: ${REDIS_HOST:127.0.0.1}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:}
+      connect-timeout: 300ms
+      timeout: 300ms
+server:
+  port: ${SERVER_PORT:8080}
+  error:
+    include-message: never
+    include-stacktrace: never
+    include-binding-errors: never
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: never
+      probes:
+        enabled: true
+      group:
+        readiness:
+          include: readinessState,db
+  health:
+    redis:
+      enabled: false
+calendar:
+  redis-cache: ${CALENDAR_REDIS_CACHE:false}
+  wechat:
+    app-id: ${WECHAT_APP_ID:}
+    app-secret: ${WECHAT_APP_SECRET:}
+    code-env: ${WECHAT_CODE_ENV:release}
